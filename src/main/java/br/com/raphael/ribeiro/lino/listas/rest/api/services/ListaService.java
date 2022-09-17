@@ -31,5 +31,7 @@ public class ListaService {
 		return listaRepository.findAll();
 	}
 
-	
+	public void remove(ListaEntity listaEncontrada) {
+		listaRepository.delete(listaEncontrada);
+	}
 }

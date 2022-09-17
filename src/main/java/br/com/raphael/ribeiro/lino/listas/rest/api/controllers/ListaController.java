@@ -63,5 +63,10 @@ public class ListaController {
 		return listaConvert.entityToOutput(listaEncontrada);
 	}
 	
-
+	@DeleteMapping("/{id}")
+	@ResponseStatus(code = HttpStatus.NO_CONTENT)
+	public void removeLivro(@PathVariable Long id) {
+		ListaEntity listaEncontrada = listaService.buscaPorId(id);
+		listaService.remove(listaEncontrada);
+	}
 }
