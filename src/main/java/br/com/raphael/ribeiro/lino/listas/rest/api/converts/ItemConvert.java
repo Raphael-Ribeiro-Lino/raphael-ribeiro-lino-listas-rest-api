@@ -21,4 +21,8 @@ public class ItemConvert {
 	public ItemOutput entityToOutput(ItemEntity itemCriado) {
 		return modelMapper.map(itemCriado, ItemOutput.class);
 	}
+
+	public void copyInputToEntity(ItemInput itemInput, ItemEntity itemEncontrado) {
+		modelMapper.map(itemInput, itemEncontrado);
+	}
 }

@@ -26,8 +26,8 @@ public class ItemEntity {
 	@Column(name = "titulo", length = 100, nullable = false)
 	private String titulo;
 	
-	@Column(name = "concluido", nullable = false)
-	private Boolean concluido;
+	@Column(name = "concluido")
+	private Boolean concluido = false;
 	
 	@ManyToOne
 	@JoinColumn(name = "lista_id")

@@ -5,7 +5,9 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -40,6 +42,15 @@ public class ItemController {
 		convertListas(itemInput, itemEntity);
 		ItemEntity itemCriado = itemService.cadastra(itemEntity);
 		return itemConvert.entityToOutput(itemCriado);
+	}
+	
+	@PutMapping("/{id}")
+	public ItemOutput altera(@RequestBody @Valid ItemInput itemInput, @PathVariable Long id) {
+		ItemEntity itemEncontrado = itemService.buscaPorId(id);
+		itemConvert.copyInputToEntity(itemInput, itemEncontrado);
+		convertListas(itemInput, itemEncontrado);
+		ItemEntity itemAlterado = itemService.altera(itemEncontrado);
+		return itemConvert.entityToOutput(itemAlterado);
 	}
 	
 	private void convertListas(ItemInput itemInput, ItemEntity itemEntity) {
