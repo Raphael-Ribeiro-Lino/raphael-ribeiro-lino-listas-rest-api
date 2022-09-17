@@ -33,4 +33,9 @@ public class ItemService {
 		itemEncontrado.setConcluido(true);
 		return itemRepository.save(itemEncontrado);
 	}
+
+	public ItemEntity naoConcluido(ItemEntity itemEncontrado) {
+		itemEncontrado.setConcluido(false);
+		return itemRepository.save(itemEncontrado);
+	}
 }

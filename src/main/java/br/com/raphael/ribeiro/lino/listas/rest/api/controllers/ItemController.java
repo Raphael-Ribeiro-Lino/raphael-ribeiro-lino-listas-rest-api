@@ -68,6 +68,13 @@ public class ItemController {
 		return itemConvert.entityToOutput(itemConcluido);
 	}
 	
+	@PutMapping("/{id}/nao-concluir")
+	public ItemOutput itemNaoConcluido(@PathVariable Long id) {
+		ItemEntity itemEncontrado = itemService.buscaPorId(id);
+		ItemEntity itemNaoConcluido = itemService.naoConcluido(itemEncontrado);
+		return itemConvert.entityToOutput(itemNaoConcluido);
+	}
+	
 	private void convertListas(ItemInput itemInput, ItemEntity itemEntity) {
 		itemEntity.setLista(listaService.buscaPorId(itemInput.getListaId()));
 	}
