@@ -2,6 +2,8 @@ package br.com.raphael.ribeiro.lino.listas.rest.api.services;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,7 @@ public class ListaService {
 	@Autowired
 	private ItemRepository itemRepository;
 
+	@Transactional
 	public ListaEntity cadastra(ListaEntity listaEntity) {
 		return listaRepository.save(listaEntity);
 	}
@@ -28,6 +31,7 @@ public class ListaService {
 		return listaRepository.findById(id).orElseThrow(()-> new NotFoundBussinessException("Lista não encontrada"));
 	}
 
+	@Transactional
 	public ListaEntity altera(ListaEntity listaEncontrada) {
 		return listaRepository.save(listaEncontrada);
 	}
@@ -36,6 +40,7 @@ public class ListaService {
 		return listaRepository.findAll();
 	}
 
+	@Transactional
 	public void remove(ListaEntity listaEncontrada) {
 		List<ItemEntity> itensEncontrados = itemRepository.findAllByLista(listaEncontrada);
 		if(!itensEncontrados.isEmpty()) {
