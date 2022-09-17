@@ -19,7 +19,7 @@ public class ItemInput {
 	
 	private Boolean concluido;
 	
-	@NotNull
+	@NotNull(message = "O id da lista é obrigatório")
 	private Long listaId;
 	
 	@AssertTrue
