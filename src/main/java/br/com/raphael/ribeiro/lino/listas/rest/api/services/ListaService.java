@@ -30,4 +30,6 @@ public class ListaService {
 	public List<ListaEntity> listaTodas() {
 		return listaRepository.findAll();
 	}
+
+	
 }
