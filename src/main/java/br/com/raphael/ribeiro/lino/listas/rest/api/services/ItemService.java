@@ -24,4 +24,8 @@ public class ItemService {
 	public ItemEntity altera(ItemEntity itemEncontrado) {
 		return itemRepository.save(itemEncontrado);
 	}
+
+	public void remove(ItemEntity itemEncontrado) {
+		itemRepository.delete(itemEncontrado);
+	}
 }
