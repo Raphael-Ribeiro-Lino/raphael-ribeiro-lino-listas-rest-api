@@ -25,7 +25,11 @@ import br.com.raphael.ribeiro.lino.listas.rest.api.entities.ItemEntity;
 import br.com.raphael.ribeiro.lino.listas.rest.api.entities.ListaEntity;
 import br.com.raphael.ribeiro.lino.listas.rest.api.services.ItemService;
 import br.com.raphael.ribeiro.lino.listas.rest.api.services.ListaService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
+@Tag(name = "Item")
 @RestController
 @RequestMapping(ControllerConfig.PRE_URL + "/itens")
 @CrossOrigin(origins = "*")
@@ -40,9 +44,10 @@ public class ItemController {
 	@Autowired
 	private ListaService listaService;
 	
+	@Operation(summary = "Cadastra item", description = "Cadastra um novo item no sistema")
 	@PostMapping
 	@ResponseStatus(code = HttpStatus.CREATED)
-	public ItemOutput cadastraItem(@RequestBody @Valid ItemInput itemInput) {
+	public ItemOutput cadastraItem(@Parameter(description = "Representação de um item") @RequestBody @Valid ItemInput itemInput) {
 		ItemEntity itemEntity = itemConvert.inputToEntity(itemInput);
 		convertListas(itemInput, itemEntity);
 		ItemEntity itemCriado = itemService.cadastra(itemEntity);
