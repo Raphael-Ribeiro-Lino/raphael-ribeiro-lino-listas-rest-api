@@ -1,5 +1,7 @@
 package br.com.raphael.ribeiro.lino.listas.rest.api.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,5 +25,9 @@ public class ListaService {
 
 	public ListaEntity altera(ListaEntity listaEncontrada) {
 		return listaRepository.save(listaEncontrada);
+	}
+
+	public List<ListaEntity> listaTodas() {
+		return listaRepository.findAll();
 	}
 }
