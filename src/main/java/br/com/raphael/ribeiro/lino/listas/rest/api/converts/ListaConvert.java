@@ -21,4 +21,8 @@ public class ListaConvert {
 	public ListaOutput entityToOutput(ListaEntity listaCriada) {
 		return modelMapper.map(listaCriada, ListaOutput.class);
 	}
+
+	public void copyInputToEntity(ListaInput listaInput, ListaEntity listaEncontrada) {
+		modelMapper.map(listaInput, listaEncontrada);
+	}
 }
