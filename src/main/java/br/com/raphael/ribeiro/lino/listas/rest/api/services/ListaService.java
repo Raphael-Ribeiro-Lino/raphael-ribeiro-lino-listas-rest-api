@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.raphael.ribeiro.lino.listas.rest.api.entities.ItemEntity;
 import br.com.raphael.ribeiro.lino.listas.rest.api.entities.ListaEntity;
 import br.com.raphael.ribeiro.lino.listas.rest.api.exceptions.NotFoundBussinessException;
+import br.com.raphael.ribeiro.lino.listas.rest.api.repositories.ItemRepository;
 import br.com.raphael.ribeiro.lino.listas.rest.api.repositories.ListaRepository;
 
 @Service
@@ -14,6 +16,9 @@ public class ListaService {
 
 	@Autowired
 	private ListaRepository listaRepository;
+	
+	@Autowired
+	private ItemRepository itemRepository;
 
 	public ListaEntity cadastra(ListaEntity listaEntity) {
 		return listaRepository.save(listaEntity);
@@ -32,6 +37,12 @@ public class ListaService {
 	}
 
 	public void remove(ListaEntity listaEncontrada) {
+		List<ItemEntity> itensEncontrados = itemRepository.findAllByLista(listaEncontrada);
+		if(!itensEncontrados.isEmpty()) {
+			for (ItemEntity itemEntity : itensEncontrados) {
+				itemRepository.delete(itemEntity);
+			}
+		}
 		listaRepository.delete(listaEncontrada);
 	}
 }
