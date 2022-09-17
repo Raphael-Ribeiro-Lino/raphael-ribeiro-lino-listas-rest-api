@@ -1,11 +1,14 @@
 package br.com.raphael.ribeiro.lino.listas.rest.api.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -19,6 +22,7 @@ import br.com.raphael.ribeiro.lino.listas.rest.api.converts.ItemConvert;
 import br.com.raphael.ribeiro.lino.listas.rest.api.dto.inputs.ItemInput;
 import br.com.raphael.ribeiro.lino.listas.rest.api.dto.outputs.ItemOutput;
 import br.com.raphael.ribeiro.lino.listas.rest.api.entities.ItemEntity;
+import br.com.raphael.ribeiro.lino.listas.rest.api.entities.ListaEntity;
 import br.com.raphael.ribeiro.lino.listas.rest.api.services.ItemService;
 import br.com.raphael.ribeiro.lino.listas.rest.api.services.ListaService;
 
@@ -73,6 +77,13 @@ public class ItemController {
 		ItemEntity itemEncontrado = itemService.buscaPorId(id);
 		ItemEntity itemNaoConcluido = itemService.naoConcluido(itemEncontrado);
 		return itemConvert.entityToOutput(itemNaoConcluido);
+	}
+	
+	@GetMapping("/lista/{listaId}")
+	public List<ItemOutput> listaItensPorIdLista(@PathVariable Long listaId){
+		ListaEntity lista = listaService.buscaPorId(listaId);
+		List<ItemEntity> listaItens = itemService.listaTodosPelaLista(lista);
+		return itemConvert.listEntityToListOutput(listaItens);
 	}
 	
 	private void convertListas(ItemInput itemInput, ItemEntity itemEntity) {

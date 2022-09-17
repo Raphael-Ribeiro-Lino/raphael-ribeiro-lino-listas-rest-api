@@ -1,5 +1,8 @@
 package br.com.raphael.ribeiro.lino.listas.rest.api.converts;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -24,5 +27,9 @@ public class ItemConvert {
 
 	public void copyInputToEntity(ItemInput itemInput, ItemEntity itemEncontrado) {
 		modelMapper.map(itemInput, itemEncontrado);
+	}
+
+	public List<ItemOutput> listEntityToListOutput(List<ItemEntity> listaItens) {
+		return listaItens.stream().map(item -> this.entityToOutput(item)).collect(Collectors.toList());
 	}
 }

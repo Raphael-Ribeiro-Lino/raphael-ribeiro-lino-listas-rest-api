@@ -1,9 +1,12 @@
 package br.com.raphael.ribeiro.lino.listas.rest.api.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.raphael.ribeiro.lino.listas.rest.api.entities.ItemEntity;
+import br.com.raphael.ribeiro.lino.listas.rest.api.entities.ListaEntity;
 import br.com.raphael.ribeiro.lino.listas.rest.api.exceptions.NotFoundBussinessException;
 import br.com.raphael.ribeiro.lino.listas.rest.api.repositories.ItemRepository;
 
@@ -37,5 +40,9 @@ public class ItemService {
 	public ItemEntity naoConcluido(ItemEntity itemEncontrado) {
 		itemEncontrado.setConcluido(false);
 		return itemRepository.save(itemEncontrado);
+	}
+
+	public List<ItemEntity> listaTodosPelaLista(ListaEntity lista) {
+		return itemRepository.findAllByLista(lista);
 	}
 }
