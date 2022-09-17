@@ -61,6 +61,13 @@ public class ItemController {
 		itemService.remove(itemEncontrado);
 	}
 	
+	@PutMapping("/{id}/concluir")
+	public ItemOutput concluiItem(@PathVariable Long id) {
+		ItemEntity itemEncontrado = itemService.buscaPorId(id);
+		ItemEntity itemConcluido = itemService.conclui(itemEncontrado);
+		return itemConvert.entityToOutput(itemConcluido);
+	}
+	
 	private void convertListas(ItemInput itemInput, ItemEntity itemEntity) {
 		itemEntity.setLista(listaService.buscaPorId(itemInput.getListaId()));
 	}

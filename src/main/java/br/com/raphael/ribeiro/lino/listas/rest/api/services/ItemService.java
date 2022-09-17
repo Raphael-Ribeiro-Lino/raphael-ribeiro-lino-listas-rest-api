@@ -28,4 +28,9 @@ public class ItemService {
 	public void remove(ItemEntity itemEncontrado) {
 		itemRepository.delete(itemEncontrado);
 	}
+
+	public ItemEntity conclui(ItemEntity itemEncontrado) {
+		itemEncontrado.setConcluido(true);
+		return itemRepository.save(itemEncontrado);
+	}
 }
