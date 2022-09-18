@@ -54,8 +54,10 @@ public class ItemController {
 		return itemConvert.entityToOutput(itemCriado);
 	}
 	
+	@Operation(summary = "Altera item", description = "Altera os dados do item selecionado")
 	@PutMapping("/{id}")
-	public ItemOutput alteraItem(@RequestBody @Valid ItemInput itemInput, @PathVariable Long id) {
+	public ItemOutput alteraItem(@Parameter(description = "Representação de um item") @RequestBody @Valid ItemInput itemInput, 
+			@Parameter(description = "Id do item", example = "1") @PathVariable Long id) {
 		ItemEntity itemEncontrado = itemService.buscaPorId(id);
 		itemConvert.copyInputToEntity(itemInput, itemEncontrado);
 		convertListas(itemInput, itemEncontrado);
@@ -63,29 +65,33 @@ public class ItemController {
 		return itemConvert.entityToOutput(itemAlterado);
 	}
 	
+	@Operation(summary = "Exclui item", description = "Exclui o item selecionado do sistema")
 	@DeleteMapping("/{id}")
 	@ResponseStatus(code = HttpStatus.NO_CONTENT)
-	public void removeItem(@PathVariable Long id) {
+	public void removeItem(@Parameter(description = "Id do item", example = "1") @PathVariable Long id) {
 		ItemEntity itemEncontrado = itemService.buscaPorId(id);
 		itemService.remove(itemEncontrado);
 	}
 	
+	@Operation(summary = "Concluí item", description = "Concluí o item selecionado")
 	@PutMapping("/{id}/concluir")
-	public ItemOutput concluiItem(@PathVariable Long id) {
+	public ItemOutput concluiItem(@Parameter(description = "Id do item", example = "1") @PathVariable Long id) {
 		ItemEntity itemEncontrado = itemService.buscaPorId(id);
 		ItemEntity itemConcluido = itemService.conclui(itemEncontrado);
 		return itemConvert.entityToOutput(itemConcluido);
 	}
 	
+	@Operation(summary = "Não concluí item", description = "Salva o item como não concluído")
 	@PutMapping("/{id}/nao-concluir")
-	public ItemOutput itemNaoConcluido(@PathVariable Long id) {
+	public ItemOutput itemNaoConcluido(@Parameter(description = "Id do item", example = "1") @PathVariable Long id) {
 		ItemEntity itemEncontrado = itemService.buscaPorId(id);
 		ItemEntity itemNaoConcluido = itemService.naoConcluido(itemEncontrado);
 		return itemConvert.entityToOutput(itemNaoConcluido);
 	}
 	
+	@Operation(summary = "Lista todos itens", description = "Lista todos os itens pelo id da lista")
 	@GetMapping("/lista/{listaId}")
-	public List<ItemOutput> listaItensPorIdLista(@PathVariable Long listaId){
+	public List<ItemOutput> listaItensPorIdLista(@Parameter(description = "Id da lista", example = "1") @PathVariable Long listaId){
 		ListaEntity lista = listaService.buscaPorId(listaId);
 		List<ItemEntity> listaItens = itemService.listaTodosPelaLista(lista);
 		return itemConvert.listEntityToListOutput(listaItens);
